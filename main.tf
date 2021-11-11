@@ -21,7 +21,7 @@ resource "helm_release" "velero" {
   name       = "velero"
   repository = "https://vmware-tanzu.github.io/helm-charts"
   chart      = "velero"
-  version    = "2.23.12"
+  version    = var.velero_version
   namespace  = kubernetes_namespace.velero.metadata[0].name
 
   set {
@@ -52,11 +52,10 @@ resource "helm_release" "velero" {
     name  = "configuration.backupStorageLocation.config.subscriptionId"
     value = var.subscription_id
   }
-  # TODO: Why?
-  #  set {
-  #    name  = "snapshotsEnabled"
-  #    value = "false"
-  #  }
+  set {
+    name  = "snapshotsEnabled"
+    value = var.snapshots_enabled
+  }
   set {
     name  = "credentials.secretContents.cloud"
     value = <<EOF
@@ -72,11 +71,9 @@ EOF
     name  = "initContainers[0].name"
     value = "velero-plugin-for-azure"
   }
-  # 1.3.0 is released, but not compatible with the helm chart, which installs velero 1.6 only,
-  # see https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure#compatibility
   set {
     name  = "initContainers[0].image"
-    value = "velero/velero-plugin-for-microsoft-azure:v1.2.1"
+    value = "velero/velero-plugin-for-microsoft-azure:${var.velero_plugin_version}"
   }
   set {
     name  = "initContainers[0].volumeMounts[0].mountPath"
@@ -90,26 +87,22 @@ EOF
     name  = "schedules.backup.schedule"
     value = var.schedule
   }
-  set {
-    name  = "schedules.backup.template.excludedNamespaces[0]"
-    value = "kube-node-lease"
+  dynamic "set" {
+    for_each = var.included_namespaces
+    content {
+      name  = "schedules.backup.template.includedNamespaces[${set.key}]"
+      value = set.value
+    }
   }
-  set {
-    name  = "schedules.backup.template.excludedNamespaces[1]"
-    value = "kube-public"
+
+  dynamic "set" {
+    for_each = var.excluded_namespaces
+    content {
+      name  = "schedules.backup.template.excludedNamespaces[${set.key}]"
+      value = set.value
+    }
   }
-  set {
-    name  = "schedules.backup.template.excludedNamespaces[2]"
-    value = "kube-system"
-  }
-  set {
-    name  = "schedules.backup.template.excludedNamespaces[3]"
-    value = "velero"
-  }
-  set {
-    name  = "schedules.backup.template.includedNamespaces[0]"
-    value = "*"
-  }
+
   set {
     name  = "schedules.backup.template.ttl"
     value = var.ttl

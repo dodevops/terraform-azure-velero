@@ -1,4 +1,4 @@
-# Terraform managemen of velero backup on AKS
+# Terraform management of velero backup on AKS
 
 ## Introduction
 
@@ -10,7 +10,7 @@ Instantiate the module by calling it from Terraform like this:
 
 ```hcl
 module "azure-basics" {
-  source  = "dodevops/backup/azure"
+  source  = "dodevops/velero/azure"
   version = "<version>"
 }
 ```
@@ -99,6 +99,37 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
+### excluded\_namespaces
+
+Description: A list of namespaces to exclude from velero backup
+
+Type: `list(string)`
+
+Default:
+
+```json
+[
+  "velero",
+  "kube-system",
+  "kube-public",
+  "kube-node-lease"
+]
+```
+
+### included\_namespaces
+
+Description: A list of namespaces to include in velero backup
+
+Type: `list(string)`
+
+Default:
+
+```json
+[
+  "*"
+]
+```
+
 ### schedule
 
 Description: Schedule for the cronjob
@@ -107,6 +138,14 @@ Type: `string`
 
 Default: `"0 0 * * *"`
 
+### snapshots\_enabled
+
+Description: Enable Velero snapshots
+
+Type: `bool`
+
+Default: `true`
+
 ### ttl
 
 Description: Time to live for the backup in form of <x>h<x>m<x>s (example for 14 days: 336h0m0s)
@@ -114,6 +153,22 @@ Description: Time to live for the backup in form of <x>h<x>m<x>s (example for 14
 Type: `string`
 
 Default: `"336h0m0s"`
+
+### velero\_plugin\_version
+
+Description: Version of the velero plugin to use
+
+Type: `string`
+
+Default: `"v1.3.0"`
+
+### velero\_version
+
+Description: Velero Helm Chart version to use
+
+Type: `string`
+
+Default: `"2.26.3"`
 
 ## Outputs
 
