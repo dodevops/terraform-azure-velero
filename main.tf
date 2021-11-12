@@ -94,7 +94,6 @@ EOF
       value = set.value
     }
   }
-
   dynamic "set" {
     for_each = var.excluded_namespaces
     content {
@@ -102,7 +101,6 @@ EOF
       value = set.value
     }
   }
-
   set {
     name  = "schedules.backup.template.ttl"
     value = var.ttl
