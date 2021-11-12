@@ -68,7 +68,7 @@ variable "azure_velero_plugin_version" {
   default     = "v1.3.0"
 }
 
-variable "included_namespaces" {
+variable "include_namespaces" {
   type        = list(string)
   description = "A list of namespaces to include in velero backup"
   default     = ["*"]

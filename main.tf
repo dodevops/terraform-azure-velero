@@ -88,7 +88,7 @@ EOF
     value = var.schedule
   }
   dynamic "set" {
-    for_each = var.included_namespaces
+    for_each = var.include_namespaces
     content {
       name  = "schedules.backup.template.includedNamespaces[${set.key}]"
       value = set.value

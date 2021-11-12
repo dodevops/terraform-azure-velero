@@ -47,15 +47,15 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### backup\_application\_id
+### backup\_sp\_id
 
-Description: Application ID used for backup
+Description: Service principal ID used for backup
 
 Type: `string`
 
-### backup\_application\_secret
+### backup\_sp\_secret
 
-Description: Secret of the backup application
+Description: Secret of the backup service principal
 
 Type: `string`
 
@@ -99,6 +99,14 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
+### azure\_velero\_plugin\_version
+
+Description: Version of the azure velero plugin to use
+
+Type: `string`
+
+Default: `"v1.3.0"`
+
 ### excluded\_namespaces
 
 Description: A list of namespaces to exclude from velero backup
@@ -116,7 +124,7 @@ Default:
 ]
 ```
 
-### included\_namespaces
+### include\_namespaces
 
 Description: A list of namespaces to include in velero backup
 
@@ -153,14 +161,6 @@ Description: Time to live for the backup in form of <x>h<x>m<x>s (example for 14
 Type: `string`
 
 Default: `"336h0m0s"`
-
-### velero\_plugin\_version
-
-Description: Version of the velero plugin to use
-
-Type: `string`
-
-Default: `"v1.3.0"`
 
 ### velero\_version
 
