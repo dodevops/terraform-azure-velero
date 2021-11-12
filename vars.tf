@@ -23,14 +23,14 @@ variable "resource_group" {
   description = "Azure Resource Group to use"
 }
 
-variable "backup_application_id" {
+variable "backup_sp_id" {
   type        = string
-  description = "Application ID used for backup"
+  description = "Service principal ID used for backup"
 }
 
-variable "backup_application_secret" {
+variable "backup_sp_secret" {
   type        = string
-  description = "Secret of the backup application"
+  description = "Secret of the backup service principal"
 }
 
 variable "backup_tenant_id" {
@@ -62,9 +62,9 @@ variable "velero_version" {
   default     = "2.26.3"
 }
 
-variable "velero_plugin_version" {
+variable "azure_velero_plugin_version" {
   type        = string
-  description = "Version of the velero plugin to use"
+  description = "Version of the azure velero plugin to use"
   default     = "v1.3.0"
 }
 

@@ -61,8 +61,8 @@ resource "helm_release" "velero" {
     value = <<EOF
 AZURE_SUBSCRIPTION_ID=${var.subscription_id}
 AZURE_TENANT_ID=${var.backup_tenant_id}
-AZURE_CLIENT_ID=${var.backup_application_id}
-AZURE_CLIENT_SECRET=${var.backup_application_secret}
+AZURE_CLIENT_ID=${var.backup_sp_id}
+AZURE_CLIENT_SECRET=${var.backup_sp_secret}
 AZURE_RESOURCE_GROUP=${var.resource_group}
 AZURE_CLOUD_NAME="AzurePublicCloud"
 EOF
@@ -73,7 +73,7 @@ EOF
   }
   set {
     name  = "initContainers[0].image"
-    value = "velero/velero-plugin-for-microsoft-azure:${var.velero_plugin_version}"
+    value = "velero/velero-plugin-for-microsoft-azure:${var.azure_velero_plugin_version}"
   }
   set {
     name  = "initContainers[0].volumeMounts[0].mountPath"

@@ -9,7 +9,7 @@ This module manages velero backup on AKS (Azure Kubernetes Service)
 Instantiate the module by calling it from Terraform like this:
 
 ```hcl
-module "azure-basics" {
+module "azure-velero" {
   source  = "dodevops/velero/azure"
   version = "<version>"
 }
