@@ -107,7 +107,7 @@ Type: `string`
 
 Default: `"v1.3.0"`
 
-### excluded\_namespaces
+### exclude\_namespaces
 
 Description: A list of namespaces to exclude from velero backup
 
