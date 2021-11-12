@@ -74,7 +74,7 @@ variable "include_namespaces" {
   default     = ["*"]
 }
 
-variable "excluded_namespaces" {
+variable "exclude_namespaces" {
   type        = list(string)
   description = "A list of namespaces to exclude from velero backup"
   default = [

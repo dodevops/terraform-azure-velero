@@ -95,7 +95,7 @@ EOF
     }
   }
   dynamic "set" {
-    for_each = var.excluded_namespaces
+    for_each = var.exclude_namespaces
     content {
       name  = "schedules.backup.template.excludedNamespaces[${set.key}]"
       value = set.value
