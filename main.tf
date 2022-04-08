@@ -11,6 +11,13 @@ resource "azurerm_storage_container" "storcontbackup" {
   storage_account_name = azurerm_storage_account.storaccbackup.name
 }
 
+resource "azurerm_role_assignment" "storage-blob-data-contributor" {
+  count = var.create_role_assignment ? 1 : 0
+  principal_id = var.backup_sp_objectid == "" ? var.backup_sp_id : var.backup_sp_objectid
+  scope        = azurerm_storage_account.storaccbackup.id
+  role_definition_name = "Storage Blob Data Contributor"
+}
+
 resource "kubernetes_namespace" "velero" {
   metadata {
     name = "velero"
