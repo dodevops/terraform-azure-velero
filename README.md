@@ -38,6 +38,7 @@ No modules.
 
 The following resources are used by this module:
 
+- [azurerm_role_assignment.storage-blob-data-contributor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) (resource)
 - [azurerm_storage_account.storaccbackup](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) (resource)
 - [azurerm_storage_container.storcontbackup](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) (resource)
 - [helm_release.velero](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
@@ -107,6 +108,24 @@ Type: `string`
 
 Default: `"v1.3.0"`
 
+### backup\_sp\_objectid
+
+Description: Service principal object ID used for backup (in case an application is used)
+
+Type: `string`
+
+Default: `""`
+
+### create\_role\_assignment
+
+Description:     Create a storage-blob-data-contributor role assignment
+    (required with this error https://medium.com/datadigest/resolving-an-authorizationpermissionmismatch-from-the-azure-file-copy-task-v4-in-azure-pipelines-654536fe3af5)  
+    If a app is used as the backup sp, also provide the app object id.
+
+Type: `bool`
+
+Default: `false`
+
 ### exclude\_namespaces
 
 Description: A list of namespaces to exclude from velero backup
@@ -172,7 +191,15 @@ Default: `"2.26.3"`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### storage\_account\_name
+
+Description: The name of the created backup storage account
+
+### storage\_container\_name
+
+Description: The name of the created backup storage container
 <!-- END_TF_DOCS -->
 
 ## Development

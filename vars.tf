@@ -31,7 +31,7 @@ variable "backup_sp_id" {
 variable "backup_sp_objectid" {
   type        = string
   description = "Service principal object ID used for backup (in case an application is used)"
-  default = ""
+  default     = ""
 }
 
 variable "backup_sp_secret" {
@@ -92,11 +92,11 @@ variable "exclude_namespaces" {
 }
 
 variable "create_role_assignment" {
-  type = bool
+  type        = bool
   description = <<EOF
     Create a storage-blob-data-contributor role assignment
     (required with this error https://medium.com/datadigest/resolving-an-authorizationpermissionmismatch-from-the-azure-file-copy-task-v4-in-azure-pipelines-654536fe3af5)
     If a app is used as the backup sp, also provide the app object id.
   EOF
-  default = false
+  default     = false
 }
