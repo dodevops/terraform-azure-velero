@@ -4,6 +4,16 @@ resource "azurerm_storage_account" "storaccbackup" {
   location                 = var.location
   name                     = "${lower(var.project)}${lower(var.stage)}storaccbackup"
   resource_group_name      = var.resource_group
+  min_tls_version          = "TLS1_2"
+  queue_properties {
+    logging {
+      delete                = true
+      read                  = true
+      write                 = true
+      version               = "2.0"
+      retention_policy_days = 14
+    }
+  }
 }
 
 resource "azurerm_storage_container" "storcontbackup" {
