@@ -30,7 +30,10 @@ variable "backup_sp_id" {
 
 variable "backup_sp_objectid" {
   type        = string
-  description = "Service principal object ID used for backup (in case an application is used)"
+  description = <<EOF
+Service principal object ID used for backup. In case an application is used, the service principal object id of the
+app is required as shown in the Enterprise Applications blade."
+EOF
   default     = ""
 }
 
