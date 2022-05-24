@@ -110,7 +110,8 @@ Default: `"v1.3.0"`
 
 ### backup\_sp\_objectid
 
-Description: Service principal object ID used for backup (in case an application is used)
+Description: Service principal object ID used for backup. In case an application is used, the service principal object id of the  
+app is required as shown in the Enterprise Applications blade."
 
 Type: `string`
 
