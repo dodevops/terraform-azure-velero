@@ -158,6 +158,14 @@ Default:
 ]
 ```
 
+### kubernetes\_resource\_group
+
+Description: Resource group of the Kubernetes resources to use (defaults to resource\_group)
+
+Type: `string`
+
+Default: `""`
+
 ### schedule
 
 Description: Schedule for the cronjob

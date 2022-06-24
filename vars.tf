@@ -23,6 +23,12 @@ variable "resource_group" {
   description = "Azure Resource Group to use"
 }
 
+variable "kubernetes_resource_group" {
+  type        = string
+  description = "Resource group of the Kubernetes resources to use (defaults to resource_group)"
+  default     = ""
+}
+
 variable "backup_sp_id" {
   type        = string
   description = "Service principal ID used for backup"

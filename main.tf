@@ -80,7 +80,7 @@ AZURE_SUBSCRIPTION_ID=${var.subscription_id}
 AZURE_TENANT_ID=${var.backup_tenant_id}
 AZURE_CLIENT_ID=${var.backup_sp_id}
 AZURE_CLIENT_SECRET=${var.backup_sp_secret}
-AZURE_RESOURCE_GROUP=${var.resource_group}
+AZURE_RESOURCE_GROUP=${var.kubernetes_resource_group == "" ? var.resource_group : var.kubernetes_resource_group}
 AZURE_CLOUD_NAME="AzurePublicCloud"
 EOF
   }
