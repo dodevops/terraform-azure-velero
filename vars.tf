@@ -74,13 +74,13 @@ variable "snapshots_enabled" {
 variable "velero_version" {
   type        = string
   description = "Velero Helm Chart version to use"
-  default     = "2.26.3"
+  default     = "5.1.4"
 }
 
 variable "azure_velero_plugin_version" {
   type        = string
   description = "Version of the azure velero plugin to use"
-  default     = "v1.3.0"
+  default     = "v1.8.1"
 }
 
 variable "include_namespaces" {

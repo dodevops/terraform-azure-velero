@@ -34,6 +34,7 @@ resource "kubernetes_namespace" "velero" {
   }
 }
 
+# https://artifacthub.io/packages/helm/vmware-tanzu/velero
 resource "helm_release" "velero" {
   name       = "velero"
   repository = "https://vmware-tanzu.github.io/helm-charts"
@@ -42,31 +43,47 @@ resource "helm_release" "velero" {
   namespace  = kubernetes_namespace.velero.metadata[0].name
 
   set {
-    name  = "configuration.provider"
-    value = "azure"
-  }
-  set {
-    name  = "configuration.backupStorageLocation.name"
+    name  = "configuration.backupStorageLocation[0].name"
     value = "default"
   }
   set {
-    name  = "configuration.backupStorageLocation.bucket"
+    name  = "configuration.backupStorageLocation[0].bucket"
     value = azurerm_storage_container.storcontbackup.name
   }
   set {
-    name  = "configuration.backupStorageLocation.prefix"
+    name  = "configuration.backupStorageLocation[0].prefix"
     value = "kubernetes"
   }
   set {
-    name  = "configuration.backupStorageLocation.config.resourceGroup"
+    name  = "configuration.backupStorageLocation[0].provider"
+    value = "azure"
+  }
+  set {
+    name  = "configuration.backupStorageLocation[0].config.resourceGroup"
     value = var.resource_group
   }
   set {
-    name  = "configuration.backupStorageLocation.config.storageAccount"
+    name  = "configuration.backupStorageLocation[0].config.storageAccount"
     value = azurerm_storage_account.storaccbackup.name
   }
   set {
-    name  = "configuration.backupStorageLocation.config.subscriptionId"
+    name  = "configuration.backupStorageLocation[0].config.subscriptionId"
+    value = var.subscription_id
+  }
+  set {
+    name  = "configuration.volumeSnapshotLocation[0].name"
+    value = "default"
+  }
+  set {
+    name  = "configuration.volumeSnapshotLocation[0].provider"
+    value = "azure"
+  }
+  set {
+    name  = "configuration.volumeSnapshotLocation[0].config.resourceGroup"
+    value = var.resource_group
+  }
+  set {
+    name  = "configuration.volumeSnapshotLocation[0].config.subscriptionId"
     value = var.subscription_id
   }
   set {

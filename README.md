@@ -18,17 +18,25 @@ module "azure-velero" {
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+The following requirements are needed by this module:
+
+- terraform (>=1.3.9)
+
+- azurerm (>=3.81.0)
+
+- helm (>=2.4.1)
+
+- kubernetes (>=2.8.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- azurerm
+- azurerm (>=3.81.0)
 
-- helm
+- helm (>=2.4.1)
 
-- kubernetes
+- kubernetes (>=2.8.0)
 
 ## Modules
 
@@ -106,7 +114,7 @@ Description: Version of the azure velero plugin to use
 
 Type: `string`
 
-Default: `"v1.3.0"`
+Default: `"v1.8.1"`
 
 ### backup\_sp\_objectid
 
@@ -196,7 +204,7 @@ Description: Velero Helm Chart version to use
 
 Type: `string`
 
-Default: `"2.26.3"`
+Default: `"5.1.4"`
 
 ## Outputs
 
@@ -213,7 +221,6 @@ Description: The name of the created backup storage container
 
 ## Development
 
-Use [terraform-docs](https://terraform-docs.io/) to generate the API documentation by running
+Use [the terraform module tools](https://github.com/dodevops/terraform-module-tools) to check and generate the documentation by running
 
-    terraform fmt .
-    terraform-docs .
+    docker run -v "$PWD":/terraform ghcr.io/dodevops/terraform-module-tools:latest
